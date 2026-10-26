@@ -16,8 +16,8 @@ See [./package-lock.json] for the complete set of transitive dependencies.
 ## Installation
 
 ```bash
-git clone https://github.com/M2VP/website.git m2vp
-cd m2vp
+git clone https://github.com/M2VP/m2vp.org.git
+cd m2vp.org
 npm i
 ```
 
