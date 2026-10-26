@@ -1,0 +1,71 @@
+/* Copyright (c) 2026 Kirk Rader */
+
+:root {
+    --header-height: 4lh;
+    --footer-height: 4lh;
+    --logo-color: #00a0ff;
+}
+
+.dark-theme {
+    --foreground-color: white;
+    --background-color: black;
+    --highlight-color: #1f1f1f;
+    --primary-accent-color: cyan;
+    --secondary-accent-color: magenta;
+}
+
+.light-theme {
+    --foreground-color: black;
+    --background-color: white;
+    --highlight-color: #f1f1f1;
+    --primary-accent-color: blue;
+    --secondary-accent-color: purple;
+}
+
+a {
+    color: var(--primary-accent-color);
+    text-decoration: none;
+}
+
+a:hover,
+a:active {
+    text-decoration: underline;
+}
+
+a:visited {
+    color: var(--secondary-accent-color);
+}
+
+body {
+    color: var(--foreground-color);
+    background-color: var(--background-color);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+details {
+    margin: 1rex 0;
+    padding: 1rex 0;
+    background-color: var(--highlight-color);
+}
+
+details>summary {
+    font-style: italic;
+    cursor: pointer;
+}
+
+details>*:not(summary) {
+    margin-left: 1rem;
+}
+
+select {
+    color: var(--foreground-color);
+    background-color: var(--background-color);
+}
+
+svg {
+    fill: var(--foreground-color);
+}

@@ -1,0 +1,25 @@
+<!-- Copyright (c) 2023-2026 Kirk Rader -->
+
+<template>
+
+    <h1>404</h1>
+
+    <p>
+        Hmmm&hellip; it seems that {{ url }} does not exist.
+    </p>
+
+    <p>
+        Maybe you actually <em>can</em> go
+        <RouterLink :to="{ name: 'home' }">home</RouterLink>
+        again, after all?
+    </p>
+
+</template>
+
+<script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const url = computed(() => new URL(route.fullPath, import.meta.url))
+</script>
