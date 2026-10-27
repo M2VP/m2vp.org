@@ -48,7 +48,7 @@ body {
 
 details {
     margin: 1rex 0;
-    padding: 1rex 0;
+    padding: 1rex 1rem 1rex 0;
     background-color: var(--highlight-color);
 }
 

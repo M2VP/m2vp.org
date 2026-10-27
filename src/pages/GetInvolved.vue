@@ -162,3 +162,13 @@
     </details>
 
 </template>
+
+<style scoped>
+details {
+    max-width: 40rem;
+}
+
+details>summary {
+    white-space: nowrap;
+}
+</style>

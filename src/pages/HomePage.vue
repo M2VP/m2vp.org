@@ -2,7 +2,7 @@
 
 <template>
 
-    <p v-if="mobile" class="large logo-color">
+    <p class="large logo-color">
         Monona•McFarland Voters for Progress
     </p>
 
@@ -34,8 +34,7 @@
         <a :href="selectedResource.href" target="_blank">
             <QrCode v-model="selectedResource.href" size="large" />
         </a>
-        <div v-if="selectedResource.description">
-            <VoterResourceDescription v-model="selectedResource.description" />
+        <div ref="resourceDescription">
         </div>
     </div>
 
@@ -45,30 +44,31 @@
 
     <div class="campaigns">
 
-        <a href="https://www.crowleyforwi.com/" target="_blank">
-            <img src="/crowley-logo.png" alt="Crowley for Wisconsin">
-        </a>
+        <div>
+            <a href="https://www.crowleyforwi.com/" target="_blank">
+                <img src="/crowley-logo.png" alt="Crowley for Wisconsin">
+            </a>
+        </div>
 
-        <a href="https://joshkaul.org/" target="_blank">
-            <img src="/kaul-logo.webp" alt="Josh Kaul">
-        </a>
+        <div>
+            <a href="https://joshkaul.org/" target="_blank">
+                <img src="/kaul-logo.webp" alt="Josh Kaul">
+            </a>
+        </div>
 
-        <a href="https://my.lwv.org/wisconsin/constitutional-corner" target="_blank">
-            <img src="/amendments2026.png" alt="no on all three amendments">
-        </a>
+        <div>
+            <a href="https://my.lwv.org/wisconsin/constitutional-corner" target="_blank">
+                <img src="/amendments2026.png" alt="no on all three amendments">
+            </a>
+        </div>
 
     </div>
 
 </template>
 
 <style scoped>
-.campaigns {
-    display: flex;
-    flex-flow: row wrap;
-}
-
 .campaigns>* {
-    margin: 1rex 1rem;
+    margin: 1rem 0;
 }
 
 .large {
@@ -79,15 +79,37 @@
     color: var(--logo-color);
 }
 
-.resource {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
+.resource>div>* {
+    max-width: 25rem;
+    margin: 1rem 0;
 }
 
-.resource>div {
-    max-width: 25rem;
-    margin: 0 1rem;
+@media (width >=1200px) {
+
+    .campaigns {
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .campaigns>* {
+        margin: 1rex 1rem;
+    }
+
+    .resource {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+    }
+
+    .resource>div {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+    }
+
+    .resource>div>* {
+        margin: 0 1rem;
+    }
 }
 
 select {
@@ -97,28 +119,26 @@ select {
 
 <script setup>
 import QrCode from '../components/QrCode.vue'
-import VoterResourceDescription from '../components/VoterResourceDescription.vue'
 import { useRouter } from 'vue-router'
-import { inject, ref } from 'vue'
+import { onMounted, ref, useTemplateRef, watch } from 'vue'
 
 const resources = [
     {
         href: 'https://myvote.wi.gov',
-        label: 'My Vote',
-        description: `Wisconsin government site for voter registration information,
-elections schedule, sample ballots, polling place look-up etc.`,
+        label: 'My Vote Wisconsin',
+        description: `<div>Wisconsin government site for voter registration information, elections schedule, sample ballots, polling place look-up etc.</div>
+<img src="/myvotewi.webp" alt="my vote wisconsin">`,
     },
     {
         href: 'tel:+1-608-285-2141',
         label: 'LWV Voter Help Line',
-        description: `Call or text the League of Women Voters' voter help line
-<a href="tel:+1-608-285-2141">608-285-2141</a> for assistance, including information
-on free rides to the polls on election day`,
+        description: `<div>Call or text the League of Women Voters' voter help line <a href="tel:+1-608-285-2141">608-285-2141</a> for assistance, including
+information on free rides to the polls on election day</div>`,
     },
 ]
 
+const resourceDescription = useTemplateRef('resourceDescription')
 const selectedResource = ref(resources[0])
-const mobile = inject('mobile')
 const router = useRouter()
 
 function showRoute(route) {
@@ -135,4 +155,18 @@ function showRoute(route) {
 
     return true
 }
+
+function updateResourceDescription() {
+
+    if (selectedResource.value.description) {
+
+        resourceDescription.value.innerHTML = selectedResource.value.description
+    }
+}
+
+onMounted(() => {
+    updateResourceDescription()
+})
+
+watch(selectedResource, updateResourceDescription)
 </script>
