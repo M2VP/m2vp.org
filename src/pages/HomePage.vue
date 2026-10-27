@@ -23,29 +23,34 @@
 
     <hr>
 
-    <select v-model="href">
-        <option v-for="resource of resources" :key="resource">
-            {{ resource }}
+    <h2>Voter Resources</h2>
+
+    <select v-model="selectedResource">
+        <option v-for="resource of resources" :key="resource.href" :value="resource">
+            {{ resource.label ?? resource.href }}
         </option>
     </select>
-    <a :href="href" target="_blank">
-        <QrCode v-model="href" size="large" />
-    </a>
-
-    <p>
-        Call or text the League of Women Voters' voter help line
-        <a href="tel:+1-608-285-2141">
-            608-285-2141
+    <div class="resource">
+        <a :href="selectedResource.href" target="_blank">
+            <QrCode v-model="selectedResource.href" size="large" />
         </a>
-        (including information on rides to the polls on election day)
-    </p>
+        <div v-if="selectedResource.description">
+            <VoterResourceDescription v-model="selectedResource.description" />
+        </div>
+    </div>
 
     <hr>
+
+    <h2>Campaigns</h2>
 
     <div class="campaigns">
 
         <a href="https://www.crowleyforwi.com/" target="_blank">
             <img src="/crowley-logo.png" alt="Crowley for Wisconsin">
+        </a>
+
+        <a href="https://joshkaul.org/" target="_blank">
+            <img src="/kaul-logo.webp" alt="Josh Kaul">
         </a>
 
         <a href="https://my.lwv.org/wisconsin/constitutional-corner" target="_blank">
@@ -74,6 +79,17 @@
     color: var(--logo-color);
 }
 
+.resource {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.resource>div {
+    max-width: 25rem;
+    margin: 0 1rem;
+}
+
 select {
     margin: 2rex 0;
 }
@@ -81,15 +97,27 @@ select {
 
 <script setup>
 import QrCode from '../components/QrCode.vue'
+import VoterResourceDescription from '../components/VoterResourceDescription.vue'
 import { useRouter } from 'vue-router'
 import { inject, ref } from 'vue'
 
 const resources = [
-    'https://myvote.wi.gov',
-    'https://vote.wisdems.org/',
+    {
+        href: 'https://myvote.wi.gov',
+        label: 'My Vote',
+        description: `Wisconsin government site for voter registration information,
+elections schedule, sample ballots, polling place look-up etc.`,
+    },
+    {
+        href: 'tel:+1-608-285-2141',
+        label: 'LWV Voter Help Line',
+        description: `Call or text the League of Women Voters' voter help line
+<a href="tel:+1-608-285-2141">608-285-2141</a> for assistance, including information
+on free rides to the polls on election day`,
+    },
 ]
 
-const href = ref(resources[0])
+const selectedResource = ref(resources[0])
 const mobile = inject('mobile')
 const router = useRouter()
 
