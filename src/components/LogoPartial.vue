@@ -2,15 +2,8 @@
 
 <template>
     <span class="logo">
-        M²VP
+        <span>
+            M²VP
+        </span>
     </span>
 </template>
-
-<style scoped>
-.logo {
-    color: var(--logo-color);
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
-    font-size: xx-large;
-}
-</style>

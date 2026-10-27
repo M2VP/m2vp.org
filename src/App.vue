@@ -21,8 +21,10 @@
         <RouterView />
     </main>
     <footer>
+        <RouterLink :to="{ name: 'team' }">
+            team
+        </RouterLink>
         <QrCode v-model="href" />
-        <LogoPartial />
     </footer>
 </template>
 
@@ -64,7 +66,7 @@ footer {
     right: 0;
     bottom: 0;
     height: var(--footer-height);
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .link {

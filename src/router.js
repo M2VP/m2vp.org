@@ -32,6 +32,16 @@ const routes = [
     },
 
     {
+        path: '/team',
+        name: 'team',
+        component: () => import('./pages/TeamResources.vue'),
+        meta: {
+            title: 'Team Resources',
+            hide: true,
+        },
+    },
+
+    {
         path: '/:pathMatch(.*)*',
         name: 'catchall',
         component: () => import('./pages/CatchAll.vue'),
