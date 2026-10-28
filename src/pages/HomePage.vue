@@ -16,7 +16,7 @@
     <template v-for="route of router.getRoutes()" :key="route.path">
         <p v-if="showRoute(route)">
             <RouterLink :to="route.path">
-                {{ route.meta?.title ?? route.name ?? route.path }}
+                {{ routeName(route) }}
             </RouterLink>
         </p>
     </template>
@@ -120,7 +120,7 @@ select {
 <script setup>
 import QrCode from '../components/QrCode.vue'
 import { useRouter } from 'vue-router'
-import { onMounted, ref, useTemplateRef, watch } from 'vue'
+import { inject, onMounted, ref, useTemplateRef, watch } from 'vue'
 
 const resources = [
     {
@@ -138,6 +138,7 @@ information on free rides to the polls on election day</div>`,
 ]
 
 const resourceDescription = useTemplateRef('resourceDescription')
+const routeName = inject('routeName')
 const selectedResource = ref(resources[0])
 const router = useRouter()
 

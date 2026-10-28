@@ -8,10 +8,10 @@
             <template v-if="!route.meta.hide">
                 <RouterLink v-if="route.path !== router.currentRoute.value.path" :to="route.path"
                     :class="index === 0 ? 'right link' : 'link'">
-                    {{ route.name }}
+                    {{ routeName(route) }}
                 </RouterLink>
                 <span v-else :class="index === 0 ? 'right link' : 'link'">
-                    {{ route.name }}
+                    {{ routeName(route) }}
                 </span>
             </template>
         </template>
@@ -93,6 +93,16 @@ const mobile = ref(true)
 let removeGuard = null
 const router = useRouter()
 
+function routeName(route) {
+
+    if (mobile.value) {
+
+        return route.name ?? route.path
+    }
+
+    return route.meta?.title ?? route.name ?? route.path
+}
+
 function toggleTheme() {
 
     const body = document.getElementsByTagName('body').item(0)
@@ -140,4 +150,5 @@ onUnmounted(() => {
 })
 
 provide('mobile', mobile)
+provide('routeName', routeName)
 </script>
