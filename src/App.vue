@@ -2,8 +2,8 @@
 
 <template>
     <header>
-        <LogoPartial v-if="smallscreen" />
-        <LogoFull v-else />
+        <QrCode v-model="href" :size="smallscreen ? 'small' : 'medium'" />
+        <LogoPartial />
         <template v-for="(route, index) of router.getRoutes()" :key="route.path">
             <template v-if="!route.meta.hide">
                 <RouterLink v-if="route.path !== router.currentRoute.value.path" :to="route.path"
@@ -21,24 +21,22 @@
         <RouterView />
     </main>
     <footer>
-        <RouterLink :to="{ name: 'team' }">
-            Team Resources
-        </RouterLink>
-        <QrCode v-model="href" />
+        <LogoFull class="center" />
     </footer>
 </template>
 
 <style scoped>
-footer {
-    display: none;
+.center {
+    margin-top: 0;
 }
 
-header {
+footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--footer-height-small);
     background-color: var(--highlight-color);
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    padding: 0 1rem;
 }
 
 header {
@@ -47,21 +45,15 @@ header {
     right: 0;
     top: 0;
     height: var(--header-height-small);
+    background-color: var(--highlight-color);
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 0 1rem;
 }
 
-@media (width >=1200px) {
-
-    footer {
-        background-color: var(--highlight-color);
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        padding: 0 1rem;
-    }
-
-    header {
-        height: var(--header-height-large);
-    }
+.link {
+    white-space: nowrap;
 }
 
 header>*:not(:last-child) {
@@ -72,27 +64,34 @@ main {
     position: absolute;
     left: 0;
     right: 0;
-    top: var(--header-height-large);
-    bottom: var(--footer-height);
+    top: var(--header-height-small);
+    bottom: var(--footer-height-small);
     overflow: auto;
     padding: 1rex 1rem;
 }
 
-footer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: var(--footer-height);
-    justify-content: space-around;
-}
-
-.link {
-    white-space: nowrap;
-}
-
 .right {
     margin-left: auto;
+}
+
+@media (width >=1200px) {
+
+    .center {
+        margin-top: 0.5rex;
+    }
+
+    footer {
+        height: var(--footer-height-large);
+    }
+
+    header {
+        height: var(--header-height-large);
+    }
+
+    main {
+        top: var(--header-height-large);
+        bottom: var(--footer-height-large);
+    }
 }
 </style>
 

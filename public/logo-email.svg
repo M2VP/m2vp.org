@@ -12,11 +12,11 @@
             font-weight: bold;
         }
         rect {
-            fill: #00A0FF;
+            fill: var(--logo-color);
             stroke: transparent;
         }
    </style>
-    <text x="1" y="20" style="font-size:24px;fill:#00A0FF;stroke:transparent;">M²VP</text>
+    <text x="1" y="20" style="font-size:24px;fill:var(--logo-color);stroke:transparent;">M²VP</text>
     <text x="1" y="44" style="font-size:12px;fill:black;stroke:transparent;">Monona●McFarland Voters for Progress</text>
     <rect x="1" y="26" width="229" height="3" />
 </svg>

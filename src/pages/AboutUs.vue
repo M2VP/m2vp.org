@@ -57,6 +57,10 @@
 .container {
     max-width: 40rem;
 }
+
+.logo-color {
+    color: var(--logo-color);
+}
 </style>
 
 <script setup>

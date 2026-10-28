@@ -1,7 +1,7 @@
 <!-- Copyright (c) 2026 Kirk Rader -->
 
 <template>
-    <div class="logo">
+    <div class="m2vp-logo">
         <div>
             M²VP
         </div>

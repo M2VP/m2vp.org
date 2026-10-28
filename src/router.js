@@ -37,7 +37,6 @@ const routes = [
         component: () => import('./pages/TeamResources.vue'),
         meta: {
             title: 'Team Resources',
-            hide: true,
         },
     },
 
