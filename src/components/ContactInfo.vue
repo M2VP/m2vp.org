@@ -1,11 +1,15 @@
 <!-- Copyright (c) 2026 Kirk Rader -->
 
 <template>
+    <p>
+        Scan this QR code to add us to your contacts:
+    </p>
     <div class="container">
         <QrCode v-model="vcard" size="large" />
         <div class="links">
-            <a href="mailto:info@m2vp.org">info@m2vp.org</a>
             <a href="https://m2vp.org" target="_blank">https://m2vp.org</a>
+            <a href="mailto:info@m2vp.org">info@m2vp.org</a>
+            <a href="tel:+1-608-285-2337">+1-608-285-2337</a>
         </div>
     </div>
 </template>
@@ -34,9 +38,11 @@ import { ref } from 'vue'
 
 const vcard = ref(`BEGIN:VCARD
 VERSION:4.0
-KIND:organization
-ORG:M2VP
-EMAIL;TYPE=work:info@m2vp.org
+KIND:org
+N;CHARSET=UTF-8:M²VP
+ORG;CHARSET=UTF-8:Monona●McFarland Voters for Progress
+TEL:+1-608-285-2337
+EMAIL:info@m2vp.org
 URL:https://m2vp.org
 END:VCARD`)
 </script>
