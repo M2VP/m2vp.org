@@ -2,7 +2,7 @@
 
 <template>
     <header>
-        <LogoPartial v-if="mobile" />
+        <LogoPartial v-if="smallscreen" />
         <LogoFull v-else />
         <template v-for="(route, index) of router.getRoutes()" :key="route.path">
             <template v-if="!route.meta.hide">
@@ -89,13 +89,13 @@ import { onMounted, onUnmounted, provide, ref } from 'vue'
 
 const href = ref('')
 let mediaQuery = null
-const mobile = ref(true)
+const smallscreen = ref(true)
 let removeGuard = null
 const router = useRouter()
 
 function routeName(route) {
 
-    if (mobile.value) {
+    if (smallscreen.value) {
 
         return route.name ?? route.path
     }
@@ -130,15 +130,15 @@ function updateHref() {
     href.value = new URL(router.currentRoute.value.path, window.location.href).href
 }
 
-function updateMobile(query) {
-    mobile.value = query.matches
+function updateSmallScreen(query) {
+    smallscreen.value = query.matches
 }
 
 onMounted(() => {
 
     mediaQuery = window.matchMedia('(width <= 1200px)')
-    mediaQuery.addEventListener('change', updateMobile)
-    updateMobile(mediaQuery)
+    mediaQuery.addEventListener('change', updateSmallScreen)
+    updateSmallScreen(mediaQuery)
     removeGuard = router.afterEach(updateHref)
     updateHref()
 })
@@ -146,9 +146,9 @@ onMounted(() => {
 onUnmounted(() => {
 
     removeGuard()
-    mediaQuery.removeEventListener('change', updateMobile)
+    mediaQuery.removeEventListener('change', updateSmallScreen)
 })
 
-provide('mobile', mobile)
+provide('smallscreen', smallscreen)
 provide('routeName', routeName)
 </script>
