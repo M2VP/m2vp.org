@@ -37,6 +37,7 @@ footer {
     bottom: 0;
     height: var(--footer-height-small);
     background-color: var(--highlight-color);
+    padding-left: 1rem;
 }
 
 header {
