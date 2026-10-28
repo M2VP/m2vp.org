@@ -29,8 +29,11 @@
 </template>
 
 <style scoped>
-header,
 footer {
+    display: none;
+}
+
+header {
     background-color: var(--highlight-color);
     display: flex;
     flex-flow: row nowrap;
@@ -47,6 +50,14 @@ header {
 }
 
 @media (width >=1200px) {
+
+    footer {
+        background-color: var(--highlight-color);
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        padding: 0 1rem;
+    }
 
     header {
         height: var(--header-height-large);
