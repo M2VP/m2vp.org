@@ -43,7 +43,14 @@ header {
     left: 0;
     right: 0;
     top: 0;
-    height: var(--header-height);
+    height: var(--header-height-small);
+}
+
+@media (width >=1200px) {
+
+    header {
+        height: var(--header-height-large);
+    }
 }
 
 header>*:not(:last-child) {
@@ -54,7 +61,7 @@ main {
     position: absolute;
     left: 0;
     right: 0;
-    top: var(--header-height);
+    top: var(--header-height-large);
     bottom: var(--footer-height);
     overflow: auto;
     padding: 1rex 1rem;

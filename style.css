@@ -1,8 +1,9 @@
 /* Copyright (c) 2026 Kirk Rader */
 
 :root {
-    --header-height: 4lh;
-    --footer-height: 4lh;
+    --footer-height: 4rlh;
+    --header-height-large: 4rlh;
+    --header-height-small: 2rlh;
     --logo-color: #00a0ff;
 }
 
@@ -85,7 +86,7 @@ details>*:not(summary) {
 }
 
 .logo>*:only-child {
-    font-size: xx-large;
+    font-size: initial;
 }
 
 select {
