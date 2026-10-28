@@ -22,7 +22,7 @@
     </main>
     <footer>
         <RouterLink :to="{ name: 'team' }">
-            team
+            Team Resources
         </RouterLink>
         <QrCode v-model="href" />
     </footer>
