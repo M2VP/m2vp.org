@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <th>
-                    Parial Logo
+                    Partial Logo
                 </th>
                 <td>
                     <img src="/logo-partial.svg">
@@ -58,6 +58,10 @@
     </h2>
 
     <p>
+        Logo font is <em>Arial</em>.
+    </p>
+
+    <p>
         Logo color is
         <code class="ex1">
                 #00a0ff
@@ -82,7 +86,8 @@
 
     <p>
         renders as <span class="logo"><span>M&#x00B2;VP</span></span> rather
-        than <span class="logo"><span>M<sup>2</sup>VP</span></span>
+        than <span class="logo"><span>M<sup>2</sup>VP</span></span> when using
+        fonts like Arial.
     </p>
 
     <p>
@@ -103,7 +108,7 @@
 }
 
 .ex3 {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial;
     font-style: italic;
     font-weight: bold;
     white-space: nowrap;

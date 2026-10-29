@@ -10,11 +10,11 @@
             font-family: Arial;
             font-style: italic;
             font-weight: bold;
-            fill: var(--logo-color);
+            fill: #00a0ff;
             stroke: transparent;
         }
         rect {
-            fill: var(--logo-color);
+            fill: #00a0ff;
             stroke: transparent;
         }
    </style>
