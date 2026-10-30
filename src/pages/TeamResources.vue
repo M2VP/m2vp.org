@@ -58,7 +58,7 @@
     </h2>
 
     <p>
-        Logo font is <em>Arial</em>.
+        Logo font is <em><strong>Arial Bold Italic</strong></em>.
     </p>
 
     <p>
