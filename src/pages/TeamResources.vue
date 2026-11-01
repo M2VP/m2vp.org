@@ -91,9 +91,9 @@
     </p>
 
     <p>
-        Similarly, use <code>&amp;#x25CF;</code> rather than <code>*</code> or
-        the like in <span class="ex1 ex3"><span>Monona&#x25CF;McFarland Voters
-                for Progress</span></span>
+        Similarly, use <code>&amp;#x2022;</code> or <code>&amp;bull;</code>
+        rather than <code>*</code> or the like in <span class="ex1
+        ex3"><span>Monona&bull;McFarland Voters for Progress</span></span>
     </p>
 
 </template>

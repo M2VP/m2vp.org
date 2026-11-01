@@ -39,9 +39,9 @@ import { ref } from 'vue'
 const vcard = ref(`BEGIN:VCARD
 VERSION:4.0
 KIND:org
-N;CHARSET=UTF-8:M²VP
-ORG;CHARSET=UTF-8:Monona●McFarland Voters for Progress
-TEL:+1-608-285-2337
+ORG;CHARSET=UTF-8:M²VP
+FN;CHARSET=UTF-8:Monona•McFarland Voters for Progress
+N;CHARSET=UTF-8:Monona•McFarland Voters for Progress
 EMAIL:info@m2vp.org
 URL:https://m2vp.org
 END:VCARD`)

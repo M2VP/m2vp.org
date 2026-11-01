@@ -7,7 +7,7 @@
         </div>
         <hr>
         <div>
-            Monona●McFarland Voters for Progress
+            Monona•McFarland Voters for Progress
         </div>
     </div>
 </template>
