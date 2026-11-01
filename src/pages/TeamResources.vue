@@ -2,6 +2,10 @@
 
 <template>
 
+    <h1>
+        Style Guide
+    </h1>
+
     <table class="logos">
         <thead>
             <tr>
@@ -85,20 +89,33 @@
 </pre>
 
     <p>
-        renders as <span class="logo"><span>M&#x00B2;VP</span></span> rather
-        than <span class="logo"><span>M<sup>2</sup>VP</span></span> when using
-        fonts like Arial.
+        renders as <span class="ex1 ex3 copyable" @mouseenter="showTooltip" @mouseleave="hideTooltip"
+            @click="copyText">M&#x00B2;VP</span> rather
+        than <span class="ex1 ex3">M<sup>2</sup>VP</span> when using fonts like
+        Arial.
     </p>
 
     <p>
         Similarly, use <code>&amp;#x2022;</code> or <code>&amp;bull;</code>
-        rather than <code>*</code> or the like in <span class="ex1
-        ex3"><span>Monona&bull;McFarland Voters for Progress</span></span>
+        rather than <code>*</code> or the like in <span class="ex1 ex3 copyable" @mouseenter="showTooltip"
+            @mouseleave="hideTooltip" @click="copyText">Monona&#x2022;McFarland Voters for Progress</span>.
     </p>
+
+    <dialog closedby="any" ref="copied">
+        Copied '{{ copiedText }}' to clipboard
+    </dialog>
+
+    <dialog closedby="none" ref="prompt">
+        Click to copy
+    </dialog>
 
 </template>
 
 <style scoped>
+.copyable {
+    cursor: pointer;
+}
+
 .ex1 {
     color: #00a0ff;
 }
@@ -124,3 +141,30 @@ th {
     padding: 1rex 1rem;
 }
 </style>
+
+<script setup>
+import { ref, useTemplateRef } from 'vue'
+
+const copied = useTemplateRef('copied')
+const copiedText = ref('')
+const prompt = useTemplateRef('prompt')
+
+function copyText(event) {
+
+    hideTooltip()
+    copiedText.value = event.target.innerText
+    navigator.clipboard.writeText(copiedText.value)
+    copied.value.show()
+}
+
+function showTooltip() {
+
+    copied.value.close()
+    prompt.value.show()
+}
+
+function hideTooltip() {
+
+    prompt.value.close()
+}
+</script>
