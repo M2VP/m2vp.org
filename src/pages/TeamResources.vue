@@ -62,7 +62,12 @@
     </h2>
 
     <p>
-        Logo font is <em><strong>Arial Bold Italic</strong></em>.
+        Logo font is
+        <strong>
+            <em>
+                Arial Bold Italic
+            </em>
+        </strong>.
     </p>
 
     <p>
@@ -77,37 +82,61 @@
     </p>
 
     <p>
-        Use unicode <code>U+00B2</code> (<code>&amp;#x00B2;</code> or
+        Use unicode <code>U+00B2</code> (<code>&amp;#xB2;</code> or
         <code>&amp;sup2;</code>) rather than
         <code>&lt;sup&gt;2&lt;/sup&gt;</code> because
     </p>
 
     <pre>
-&lt;span class="logo"&gt;
-    &lt;span&gt;M&amp;#x00B2;VP&lt;/span&gt;
-&lt;/span&gt;
-</pre>
+        &lt;span class="logo"&gt;
+            &lt;span&gt;
+                M&amp;#xB2;VP
+            &lt;/span&gt;
+        &lt;/span&gt;
+    </pre>
 
-    <p>
-        renders as <span class="ex1 ex3 copy-anchor-1" @mouseenter="showCopyPrompt1" @mouseleave="hideCopyPrompt1"
-            @click="copyText">M&#x00B2;VP</span> rather
-        than <span class="ex1 ex3">M<sup>2</sup>VP</span> when using fonts like
-        Arial.
-    </p>
+    <div class="copy-scope">
 
-    <div class="copy-prompt-1">
-        Click to copy
+        <div>
+            renders as
+            <span class="m2vp-logo copy-anchor" @mouseenter="showCopyPrompt" @mouseleave="hideCopyPrompts"
+                @click="copyText">
+                <span>
+                    M&#xB2;VP
+                </span>
+            </span>
+            rather than
+            <span class="m2vp-logo">
+                <span>
+                    M<sup>2</sup>VP
+                </span>
+            </span>
+            when using fonts like Arial.
+        </div>
+
+        <div class="copy-prompt">
+            Click to copy
+        </div>
+
     </div>
 
-    <p>
-        Similarly, use <code>&amp;#x2022;</code> or <code>&amp;bull;</code>
-        rather than <code>*</code> or the like in <span class="ex1 ex3 copy-anchor-2" @mouseenter="showCopyPrompt2"
-            @mouseleave="hideCopyPrompt2" @click="copyText">Monona&#x2022;McFarland Voters
-            for Progress</span>.
-    </p>
+    <div class="copy-scope">
 
-    <div class="copy-prompt-2">
-        Click to copy
+        <div>
+            Similarly, use <code>U+2022</code> (<code>&amp;#x2022;</code> or <code>&amp;bull;</code>)
+            rather than <code>*</code> or the like in
+            <span class="m2vp-logo copy-anchor" @mouseenter="showCopyPrompt" @mouseleave="hideCopyPrompts"
+                @click="copyText">
+                <span>
+                    Monona&#x2022;McFarland Voters for Progress
+                </span>
+            </span>
+        </div>
+
+        <div class="copy-prompt">
+            Click to copy
+        </div>
+
     </div>
 
     <dialog closedby="any" ref="copied">
@@ -117,29 +146,18 @@
 </template>
 
 <style scoped>
-.copy-anchor-1 {
-    anchor-name: --copy-anchor-1;
+.copy-scope {
+    anchor-scope: --copy-anchor;
+    margin: 1rlh 0;
 }
 
-.copy-anchor-2 {
-    anchor-name: --copy-anchor-2;
-}
-
-.copy-anchor-1,
-.copy-anchor-2 {
+.copy-anchor {
+    anchor-name: --copy-anchor;
     cursor: copy;
 }
 
-.copy-prompt-1 {
-    position-anchor: --copy-anchor-1;
-}
-
-.copy-prompt-2 {
-    position-anchor: --copy-anchor-2;
-}
-
-.copy-prompt-1,
-.copy-prompt-2 {
+.copy-prompt {
+    position-anchor: --copy-anchor;
     display: none;
     position: fixed;
     inset-block-start: anchor(end);
@@ -183,41 +201,44 @@ const copiedText = ref('')
 
 function copyText(event) {
 
-    hideCopyPrompt1()
-    hideCopyPrompt2()
+    hideCopyPrompts()
     copiedText.value = event.target.innerText
     navigator.clipboard.writeText(copiedText.value)
     copied.value.show()
 }
 
-function hideCopyPrompt1() {
+function findCopyScope(target) {
 
-    const prompt = document.querySelector('.copy-prompt-1')
+    if (target === null) {
 
-    prompt.style.setProperty('display', 'none')
+        throw 'no copy-scope found'
+    }
+
+    if (target.classList.contains('copy-scope')) {
+
+        return target
+    }
+
+    return findCopyScope(target.parentElement)
 }
 
-function hideCopyPrompt2() {
+function hideCopyPrompts() {
 
-    const prompt = document.querySelector('.copy-prompt-2')
+    const prompts = document.getElementsByClassName('copy-prompt')
 
-    prompt.style.setProperty('display', 'none')
+    for (let index = 0; index < prompts.length; ++index) {
+
+        prompts.item(index).style.setProperty('display', 'none')
+    }
 }
 
-function showCopyPrompt1() {
+
+function showCopyPrompt(event) {
 
     copied.value.close()
 
-    const prompt = document.querySelector('.copy-prompt-1')
-
-    prompt.style.setProperty('display', 'inline-block')
-}
-
-function showCopyPrompt2() {
-
-    copied.value.close()
-
-    const prompt = document.querySelector('.copy-prompt-2')
+    const scope = findCopyScope(event.target)
+    const prompt = scope.querySelector('.copy-prompt')
 
     prompt.style.setProperty('display', 'inline-block')
 }

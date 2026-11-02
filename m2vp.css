@@ -9,6 +9,7 @@
     font-family: Arial;
     font-weight: bolder;
     font-style: italic;
+    white-space: nowrap;
 }
 
 .m2vp-logo>hr {
