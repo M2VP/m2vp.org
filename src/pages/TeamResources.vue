@@ -89,8 +89,8 @@
 </pre>
 
     <p>
-        renders as <span class="ex1 ex3 copyable copy-anchor-1" @mouseenter="showCopyPrompt1"
-            @mouseleave="hideCopyPrompt1" @click="copyText">M&#x00B2;VP</span> rather
+        renders as <span class="ex1 ex3 copy-anchor-1" @mouseenter="showCopyPrompt1" @mouseleave="hideCopyPrompt1"
+            @click="copyText">M&#x00B2;VP</span> rather
         than <span class="ex1 ex3">M<sup>2</sup>VP</span> when using fonts like
         Arial.
     </p>
@@ -101,8 +101,8 @@
 
     <p>
         Similarly, use <code>&amp;#x2022;</code> or <code>&amp;bull;</code>
-        rather than <code>*</code> or the like in <span class="ex1 ex3 copyable copy-anchor-2"
-            @mouseenter="showCopyPrompt2" @mouseleave="hideCopyPrompt2" @click="copyText">Monona&#x2022;McFarland Voters
+        rather than <code>*</code> or the like in <span class="ex1 ex3 copy-anchor-2" @mouseenter="showCopyPrompt2"
+            @mouseleave="hideCopyPrompt2" @click="copyText">Monona&#x2022;McFarland Voters
             for Progress</span>.
     </p>
 
@@ -117,16 +117,17 @@
 </template>
 
 <style scoped>
-.clickable {
-    cursor: pointer;
-}
-
 .copy-anchor-1 {
     anchor-name: --copy-anchor-1;
 }
 
 .copy-anchor-2 {
     anchor-name: --copy-anchor-2;
+}
+
+.copy-anchor-1,
+.copy-anchor-2 {
+    cursor: copy;
 }
 
 .copy-prompt-1 {
@@ -146,10 +147,6 @@
     width: max-content;
     color: var(--foreground-color);
     background-color: var(--highlight-color);
-}
-
-.copyable {
-    cursor: copy;
 }
 
 .ex1 {
