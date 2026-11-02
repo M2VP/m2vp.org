@@ -89,31 +89,67 @@
 </pre>
 
     <p>
-        renders as <span class="ex1 ex3 copyable" @mouseenter="showTooltip" @mouseleave="hideTooltip"
-            @click="copyText">M&#x00B2;VP</span> rather
+        renders as <span class="ex1 ex3 copyable copy-anchor-1" @mouseenter="showCopyPrompt1"
+            @mouseleave="hideCopyPrompt1" @click="copyText">M&#x00B2;VP</span> rather
         than <span class="ex1 ex3">M<sup>2</sup>VP</span> when using fonts like
         Arial.
     </p>
 
+    <div class="copy-prompt-1">
+        Click to copy
+    </div>
+
     <p>
         Similarly, use <code>&amp;#x2022;</code> or <code>&amp;bull;</code>
-        rather than <code>*</code> or the like in <span class="ex1 ex3 copyable" @mouseenter="showTooltip"
-            @mouseleave="hideTooltip" @click="copyText">Monona&#x2022;McFarland Voters for Progress</span>.
+        rather than <code>*</code> or the like in <span class="ex1 ex3 copyable copy-anchor-2"
+            @mouseenter="showCopyPrompt2" @mouseleave="hideCopyPrompt2" @click="copyText">Monona&#x2022;McFarland Voters
+            for Progress</span>.
     </p>
+
+    <div class="copy-prompt-2">
+        Click to copy
+    </div>
 
     <dialog closedby="any" ref="copied">
         Copied '{{ copiedText }}' to clipboard
     </dialog>
 
-    <dialog closedby="none" ref="prompt">
-        Click to copy
-    </dialog>
-
 </template>
 
 <style scoped>
-.copyable {
+.clickable {
     cursor: pointer;
+}
+
+.copy-anchor-1 {
+    anchor-name: --copy-anchor-1;
+}
+
+.copy-anchor-2 {
+    anchor-name: --copy-anchor-2;
+}
+
+.copy-prompt-1 {
+    position-anchor: --copy-anchor-1;
+}
+
+.copy-prompt-2 {
+    position-anchor: --copy-anchor-2;
+}
+
+.copy-prompt-1,
+.copy-prompt-2 {
+    display: none;
+    position: fixed;
+    inset-block-start: anchor(end);
+    inset-inline-start: anchor(self-start);
+    width: max-content;
+    color: var(--foreground-color);
+    background-color: var(--highlight-color);
+}
+
+.copyable {
+    cursor: copy;
 }
 
 .ex1 {
@@ -147,24 +183,45 @@ import { ref, useTemplateRef } from 'vue'
 
 const copied = useTemplateRef('copied')
 const copiedText = ref('')
-const prompt = useTemplateRef('prompt')
 
 function copyText(event) {
 
-    hideTooltip()
+    hideCopyPrompt1()
+    hideCopyPrompt2()
     copiedText.value = event.target.innerText
     navigator.clipboard.writeText(copiedText.value)
     copied.value.show()
 }
 
-function showTooltip() {
+function hideCopyPrompt1() {
 
-    copied.value.close()
-    prompt.value.show()
+    const prompt = document.querySelector('.copy-prompt-1')
+
+    prompt.style.setProperty('display', 'none')
 }
 
-function hideTooltip() {
+function hideCopyPrompt2() {
 
-    prompt.value.close()
+    const prompt = document.querySelector('.copy-prompt-2')
+
+    prompt.style.setProperty('display', 'none')
+}
+
+function showCopyPrompt1() {
+
+    copied.value.close()
+
+    const prompt = document.querySelector('.copy-prompt-1')
+
+    prompt.style.setProperty('display', 'inline-block')
+}
+
+function showCopyPrompt2() {
+
+    copied.value.close()
+
+    const prompt = document.querySelector('.copy-prompt-2')
+
+    prompt.style.setProperty('display', 'inline-block')
 }
 </script>
