@@ -38,39 +38,9 @@
         </div>
     </div>
 
-    <hr>
-
-    <h2>Campaigns</h2>
-
-    <div class="campaigns">
-
-        <div>
-            <a href="https://www.crowleyforwi.com/" target="_blank">
-                <img src="/crowley-logo.png" alt="Crowley for Wisconsin">
-            </a>
-        </div>
-
-        <div>
-            <a href="https://joshkaul.org/" target="_blank">
-                <img src="/kaul-logo.webp" alt="Josh Kaul">
-            </a>
-        </div>
-
-        <div>
-            <a href="https://my.lwv.org/wisconsin/constitutional-corner" target="_blank">
-                <img src="/amendments2026.png" alt="no on all three amendments">
-            </a>
-        </div>
-
-    </div>
-
 </template>
 
 <style scoped>
-.campaigns>* {
-    margin: 1rem 0;
-}
-
 .large {
     font-size: x-large;
 }

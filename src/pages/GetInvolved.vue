@@ -11,14 +11,10 @@
     </h2>
 
     <p>
-        <a href="https://www.mobilize.us/mobilize/event/1025106/" target="_blank">
-            Get Out the Vote Canvasses &mdash; now through 11/3/2026
-        </a>
-    </p>
-
-    <p>
-        <a href="https://www.mobilize.us/mobilize/event/1033341/" target="_blank">
-            Voter Follow-up Friend / Phone Bank &ndash; 10/29/2026 @ 7pm
+        Now that the midterms are over we will start posting events for the next
+        election cycle soon on
+        <a href="https://www.mobilize.us/" target="_blank">
+            https://www.mobilize.us
         </a>
     </p>
 
