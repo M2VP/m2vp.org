@@ -3,8 +3,14 @@
 <template>
 
     <h1>
-        Style Guide
+        Team Resources
     </h1>
+
+    <hr>
+
+    <h2>
+        Style Guide
+    </h2>
 
     <table class="logos">
         <thead>
@@ -56,10 +62,6 @@
             </tr>
         </tbody>
     </table>
-
-    <h2>
-        Style Guide
-    </h2>
 
     <p>
         Logo font is
@@ -123,8 +125,8 @@
     <div class="copy-scope">
 
         <div>
-            Similarly, use <code>U+2022</code> (<code>&amp;#x2022;</code> or <code>&amp;bull;</code>)
-            rather than <code>*</code> or the like in
+            Similarly, use <code>U+2022</code> (<code>&amp;#x2022;</code> or
+            <code>&amp;bull;</code>) rather than <code>*</code> or the like in
             <span class="m2vp-logo copy-anchor" @mouseenter="showCopyPrompt" @mouseleave="hideCopyPrompts"
                 @click="copyText">
                 <span>
@@ -142,6 +144,16 @@
     <dialog closedby="any" ref="copied">
         Copied '{{ copiedText }}' to clipboard
     </dialog>
+
+    <hr>
+
+    <h2>
+        GitHub Repository
+    </h2>
+
+    <a href="https://github.com/M2VP/m2vp.org" target="_blank">
+        https://github.com/M2VP/m2vp.org
+    </a>
 
 </template>
 
