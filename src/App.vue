@@ -111,20 +111,6 @@ const smallscreen = ref(true)
 let removeGuard = null
 const router = useRouter()
 
-function getThemePreference() {
-
-    try {
-
-        return window.localStorage.getItem('theme')
-
-    } catch (error) {
-
-        console.warn(error)
-    }
-
-    return 'dark-theme'
-}
-
 function routeName(route) {
 
     if (smallscreen.value) {
@@ -135,38 +121,32 @@ function routeName(route) {
     return route.meta?.title ?? route.name ?? route.path
 }
 
-function setThemePreference(value) {
+function toggleTheme() {
+
+    const body = document.getElementsByTagName('body').item(0)
+    const classes = body.classList
+    const oldTheme = classes.contains('dark-theme') ?
+        'dark-theme' : classes.contains('light-theme') ?
+            'light-theme' : null
+    const newTheme = oldTheme === 'dark-theme' ? 'light-theme' : 'dark-theme'
+
+    if (oldTheme) {
+
+        classes.replace(oldTheme, newTheme)
+
+    } else {
+
+        classes.add(newTheme)
+    }
 
     try {
 
-        window.localStorage.setItem('theme', value)
+        window.localStorage.setItem('theme', newTheme)
 
     } catch (error) {
 
         console.warn(error)
     }
-}
-
-function toggleTheme() {
-
-    const body = document.getElementsByTagName('body').item(0)
-    const classes = body.classList
-
-    if (classes.contains('dark-theme')) {
-
-        classes.remove('dark-theme')
-        classes.add('light-theme')
-        setThemePreference('light-theme')
-        return
-    }
-
-    if (classes.contains('light-theme')) {
-
-        classes.remove('light-theme')
-    }
-
-    setThemePreference('dark-theme')
-    classes.add('dark-theme')
 }
 
 function updateHref() {
@@ -180,11 +160,18 @@ function updateSmallScreen(query) {
 
 onMounted(() => {
 
-    const theme = window.localStorage.getItem('theme') || 'dark-theme'
+    try {
 
-    if (theme === 'light-theme') {
+        const theme = window.localStorage.getItem('theme') || 'dark-theme'
 
-        toggleTheme()
+        if (theme === 'light-theme') {
+
+            toggleTheme()
+        }
+
+    } catch (error) {
+
+        console.warn(error)
     }
 
     mediaQuery = window.matchMedia('(width <= 1200px)')
