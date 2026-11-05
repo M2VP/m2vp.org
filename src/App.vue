@@ -125,19 +125,10 @@ function toggleTheme() {
 
     const body = document.getElementsByTagName('body').item(0)
     const classes = body.classList
-    const oldTheme = classes.contains('dark-theme') ?
-        'dark-theme' : classes.contains('light-theme') ?
-            'light-theme' : null
+    const oldTheme = classes.contains('dark-theme') ? 'dark-theme' : 'light-theme'
     const newTheme = oldTheme === 'dark-theme' ? 'light-theme' : 'dark-theme'
 
-    if (oldTheme) {
-
-        classes.replace(oldTheme, newTheme)
-
-    } else {
-
-        classes.add(newTheme)
-    }
+    classes.replace(oldTheme, newTheme)
 
     try {
 
