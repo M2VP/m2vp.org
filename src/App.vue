@@ -111,6 +111,20 @@ const smallscreen = ref(true)
 let removeGuard = null
 const router = useRouter()
 
+function getThemePreference() {
+
+    try {
+
+        return window.localStorage.getItem('theme')
+
+    } catch (error) {
+
+        console.warn(error)
+    }
+
+    return 'dark-theme'
+}
+
 function routeName(route) {
 
     if (smallscreen.value) {
@@ -119,6 +133,18 @@ function routeName(route) {
     }
 
     return route.meta?.title ?? route.name ?? route.path
+}
+
+function setThemePreference(value) {
+
+    try {
+
+        window.localStorage.setItem('theme', value)
+
+    } catch (error) {
+
+        console.warn(error)
+    }
 }
 
 function toggleTheme() {
@@ -130,16 +156,16 @@ function toggleTheme() {
 
         classes.remove('dark-theme')
         classes.add('light-theme')
+        setThemePreference('light-theme')
         return
     }
 
     if (classes.contains('light-theme')) {
 
         classes.remove('light-theme')
-        classes.add('dark-theme')
-        return
     }
 
+    setThemePreference('dark-theme')
     classes.add('dark-theme')
 }
 
@@ -153,6 +179,13 @@ function updateSmallScreen(query) {
 }
 
 onMounted(() => {
+
+    const theme = window.localStorage.getItem('theme') || 'dark-theme'
+
+    if (theme === 'light-theme') {
+
+        toggleTheme()
+    }
 
     mediaQuery = window.matchMedia('(width <= 1200px)')
     mediaQuery.addEventListener('change', updateSmallScreen)
