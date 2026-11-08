@@ -26,23 +26,33 @@
     <h2>Voter Resources</h2>
 
     <TabsView :tabs="tabs" v-model="selectedTab">
-        <div tab-value="myvote" class="resource">
-            <QrCode v-model="myVoteUrl" size="large" />
-            <div class="description">
-                <a :href="myVoteUrl" target="_blank">{{ myVoteUrl }}</a>
-                &mdash; Wisconsin government site for voter registration
-                information, elections schedule, sample ballots, polling place
-                look-up etc.
+        <div tab-value="myvote">
+            <div class="resource">
+                <img src="/myvotewi.webp" alt="My Vote Wisconsin">
+                <div class="description">
+                    <a :href="myVoteUrl" target="_blank">{{ myVoteUrl }}</a>
+                    &mdash; Wisconsin government site for voter registration
+                    information, elections schedule, sample ballots, polling
+                    place look-up etc.
+                </div>
+                <QrCode v-model="myVoteUrl" size="large" />
             </div>
-            <img src="/myvotewi.webp" alt="My Vote Wisconsin">
         </div>
-        <div tab-value="helpline" class="resource">
-            <QrCode v-model="helplineUrl" size="large" />
-            <div class="description">
-                Call or text the League of Women Voters' voter help line &mdash;
-                <a :href="helplineUrl">{{ helplineUrl.substring(4) }}</a>
-                &mdash; for assistance, including information on free rides to
-                the polls on election day
+        <div tab-value="helpline">
+            <div class="resource">
+                <div class="description">
+                    Call or text the
+                    <a href="https://my.lwv.org/wisconsin" target="_blank">
+                        League of Women Voters of Wisconson
+                    </a>
+                    voter help line &mdash;
+                    <a :href="helplineUrl">
+                        {{ helplineUrl.substring(4) }}
+                    </a>
+                    &mdash; for assistance, including information on free rides
+                    to the polls on election day
+                </div>
+                <QrCode v-model="helplineUrl" size="large" />
             </div>
         </div>
     </TabsView>
@@ -65,8 +75,8 @@
 .resource {
     display: flex;
     flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: start;
 }
 
 .resource>*:not(:first-child) {
@@ -79,6 +89,8 @@
     .resource {
         display: flex;
         flex-flow: row nowrap;
+        align-items: center;
+        justify-content: start;
     }
 
     .resource>* {
@@ -109,7 +121,7 @@ const tabs = [
         value: 'myvote',
     },
     {
-        label: 'LWV Voter Help Line',
+        label: 'LWVWI Voter Help Line',
         value: 'helpline',
     },
 ]
