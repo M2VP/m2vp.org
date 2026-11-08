@@ -6,20 +6,10 @@
         Monona•McFarland Voters for Progress
     </p>
 
-    <p>
-        &hellip;of the people, by the people,
-        <span class="logoColor">
-            for the people
-        </span>
+    <p class="nowrap">
+        &hellip;of the people, <wbr> by the poeple, <wbr>
+        <span class="logoColor">for the people</span>
     </p>
-
-    <template v-for="route of router.getRoutes()" :key="route.path">
-        <p v-if="showRoute(route)">
-            <RouterLink :to="route.path">
-                {{ routeName(route) }}
-            </RouterLink>
-        </p>
-    </template>
 
     <hr>
 
@@ -70,6 +60,10 @@
 
 .logoColor {
     color: var(--logo-color);
+}
+
+.nowrap {
+    white-space: nowrap;
 }
 
 .resource {
