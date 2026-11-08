@@ -2,13 +2,13 @@
 
 <template>
 
-    <p class="large logo-color">
+    <p class="large logoColor">
         Monona•McFarland Voters for Progress
     </p>
 
     <p>
         &hellip;of the people, by the people,
-        <span class="logo-color">
+        <span class="logoColor">
             for the people
         </span>
     </p>
@@ -25,92 +25,96 @@
 
     <h2>Voter Resources</h2>
 
-    <select v-model="selectedResource">
-        <option v-for="resource of resources" :key="resource.href" :value="resource">
-            {{ resource.label ?? resource.href }}
-        </option>
-    </select>
-    <div class="resource">
-        <a :href="selectedResource.href" target="_blank">
-            <QrCode v-model="selectedResource.href" size="large" />
-        </a>
-        <div ref="resourceDescription">
+    <TabsView :tabs="tabs" v-model="selectedTab">
+        <div tab-value="myvote" class="resource">
+            <QrCode v-model="myVoteUrl" size="large" />
+            <div class="description">
+                <a :href="myVoteUrl" target="_blank">{{ myVoteUrl }}</a>
+                &mdash; Wisconsin government site for voter registration
+                information, elections schedule, sample ballots, polling place
+                look-up etc.
+            </div>
+            <img src="/myvotewi.webp" alt="My Vote Wisconsin">
         </div>
-    </div>
+        <div tab-value="helpline" class="resource">
+            <QrCode v-model="helplineUrl" size="large" />
+            <div class="description">
+                Call or text the League of Women Voters' voter help line &mdash;
+                <a :href="helplineUrl">{{ helplineUrl.substring(4) }}</a>
+                &mdash; for assistance, including information on free rides to
+                the polls on election day
+            </div>
+        </div>
+    </TabsView>
 
 </template>
 
 <style scoped>
+.description {
+    width: 25rem;
+}
+
 .large {
     font-size: x-large;
 }
 
-.logo-color {
+.logoColor {
     color: var(--logo-color);
 }
 
-.resource>div>* {
-    max-width: 25rem;
-    margin: 1rem 0;
+.resource {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.resource>*:not(:first-child) {
+    margin-top: 1rlh;
+    margin-left: 0;
 }
 
 @media (width >=1200px) {
 
-    .campaigns {
-        display: flex;
-        flex-flow: row wrap;
-    }
-
-    .campaigns>* {
-        margin: 1rex 1rem;
-    }
-
     .resource {
         display: flex;
         flex-flow: row nowrap;
-        align-items: center;
     }
 
-    .resource>div {
-        display: flex;
-        flex-flow: row nowrap;
-        align-items: center;
+    .resource>* {
+        display: inline-block;
     }
 
-    .resource>div>* {
-        margin: 0 1rem;
+    .resource>*:not(:first-child) {
+        margin-top: 0;
+        margin-left: 1rem;
     }
-}
-
-select {
-    margin: 2rex 0;
 }
 </style>
 
 <script setup>
 import QrCode from '../components/QrCode.vue'
+import TabsView from '../components/TabsView.vue'
 import { useRouter } from 'vue-router'
-import { inject, onMounted, ref, useTemplateRef, watch } from 'vue'
+import { inject, ref } from 'vue'
 
-const resources = [
+const helplineUrl = ref('tel:+1-608-285-2141')
+const myVoteUrl = ref('https://myvote.wi.gov')
+const routeName = inject('routeName')
+const router = useRouter()
+
+const tabs = [
     {
-        href: 'https://myvote.wi.gov',
-        label: 'My Vote Wisconsin',
-        description: `<div>Wisconsin government site for voter registration information, elections schedule, sample ballots, polling place look-up etc.</div>
-<img src="/myvotewi.webp" alt="my vote wisconsin">`,
+        label: 'MyVote Wisconsin',
+        value: 'myvote',
     },
     {
-        href: 'tel:+1-608-285-2141',
         label: 'LWV Voter Help Line',
-        description: `<div>Call or text the League of Women Voters' voter help line <a href="tel:+1-608-285-2141">608-285-2141</a> for assistance, including
-information on free rides to the polls on election day</div>`,
+        value: 'helpline',
     },
 ]
 
-const resourceDescription = useTemplateRef('resourceDescription')
-const routeName = inject('routeName')
-const selectedResource = ref(resources[0])
-const router = useRouter()
+const selectedTab = ref(tabs[0].value)
 
 function showRoute(route) {
 
@@ -126,18 +130,4 @@ function showRoute(route) {
 
     return true
 }
-
-function updateResourceDescription() {
-
-    if (selectedResource.value.description) {
-
-        resourceDescription.value.innerHTML = selectedResource.value.description
-    }
-}
-
-onMounted(() => {
-    updateResourceDescription()
-})
-
-watch(selectedResource, updateResourceDescription)
 </script>
