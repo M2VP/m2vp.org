@@ -5,6 +5,9 @@
     --footer-height-small: 2rlh;
     --header-height-large: 4rlh;
     --header-height-small: 2rlh;
+    --logo-color: #00a0ff;
+    --old-glory-red: #b31942;
+    --old-glory-blue: #0a3161;
 }
 
 .dark-theme {
@@ -71,4 +74,46 @@ svg,
 svg>text {
     fill: var(--foreground-color);
     stroke: transparent;
+}
+
+.m2vp-logo {
+    color: var(--logo-color);
+    font-family: Arial;
+    font-weight: bolder;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+.m2vp-logo>hr {
+    border-color: var(--logo-color);
+    border-width: 1px;
+    margin: 1px 0;
+}
+
+.m2vp-logo>*:first-child {
+    font-size: medium;
+}
+
+.m2vp-logo>*:last-child {
+    font-size: smaller;
+}
+
+.m2vp-logo>*:only-child {
+    font-size: initial;
+}
+
+@media (width >=1200px) {
+
+    .m2vp-logo>hr {
+        border-width: 2px;
+        margin: 2px 0;
+    }
+
+    .m2vp-logo>*:first-child {
+        font-size: xx-large;
+    }
+
+    .m2vp-logo>*:last-child {
+        font-size: medium;
+    }
 }
