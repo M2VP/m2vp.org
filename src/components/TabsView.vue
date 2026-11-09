@@ -1,68 +1,5 @@
 <!-- Copyright (c) 2026 Kirk Rader -->
 
-<!--
-A simple Vue component for displaying content within a set of tabs, only one of
-which is visible at a time. See https://vuejs.org for more information on how
-such SFC's (Single File Components) work.
-
-The `<TabsView>` component requires a `tabs` property, whose value is an array
-of objects specifying each tab's label and model value. It also requires a
-`v-model` containing the value for the currently selected tab. Its default slot
-is a collection of elements, e.g. <div> or <span>. Each element in the default
-slot corresponds to one tabbed "page." Each such element must have a `tab-value`
-property whose value matches one of the members of the <TabView> element's
-`tabs` array. Only one of the elements in the default slot will be displayed at
-any given time, as determined by the current value of the <TabView> model.
-Clicking on a tab will change the model's value, thus changing which tabbed
-"page" is visible.
-
-Example:
-
-    <template>
-
-        <TabsView :tabs="tabs" v-model="selectedTab">
-
-            <div tab-value="one">Here is tab one's content</div>
-
-            <div tab-value="two">Here is tab two's content</div>
-
-            <div tab-value="three">Here is tab three's content</div>
-
-        </TabsView>
-
-    </templae>
-
-    <script setup>
-
-    import TabsView from '@/components/TabsView.vue'
-
-    const tabs = [
-
-        {
-            label: 'Tab 1',
-            value: 'one',
-        },
-
-        {
-            label: 'Tab 2',
-            value: 'two',
-        },
-
-        {
-            label: 'Tab 3',
-            value: 'three',
-        },
-    ]
-
-    const selectedTab = ref(tabs[0].value)
-
-    </script>
-
-The final rendering of the `<TabView>` element depends on the global CSS
-stylesheet, including values for the `--highlight-color` and
-`--primary-accent-color` variables.
--->
-
 <template>
     <div :class="tabsStyles.view">
         <div :class="tabsStyles.bar" ref="tabsBar">
@@ -71,7 +8,9 @@ stylesheet, including values for the `--highlight-color` and
             </div>
         </div>
         <div :class="tabsStyles.window" ref="tabWindow">
-            <slot></slot>
+            <template v-for="tab of tabs" :key="tab.value">
+                <component :is="tab.component" :tab-value="tab.value" :component-styles="tab.styles" />
+            </template>
         </div>
     </div>
 </template>

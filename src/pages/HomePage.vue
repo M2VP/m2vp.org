@@ -15,7 +15,7 @@
 
     <h2>Voter Resources</h2>
 
-    <VoterResources :components="components" />
+    <VoterResources />
 
 </template>
 
@@ -34,21 +34,5 @@
 </style>
 
 <script setup>
-import HelpLine from '../components/HelpLine.vue'
-import MyVote from '../components/MyVote.vue'
 import VoterResources from '../components/VoterResources.vue'
-import { shallowRef } from 'vue'
-
-const components = shallowRef([
-    {
-        component: MyVote,
-        label: 'MyVote Wisconsin',
-        value: 'myvote',
-    },
-    {
-        component: HelpLine,
-        label: 'LWVWI Voter Help Line',
-        value: 'helpline',
-    },
-])
 </script>
