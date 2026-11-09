@@ -1,5 +1,81 @@
 <!-- Copyright (c) 2026 Kirk Rader -->
 
+<!--
+Display an array of components as set of tabbed pages.
+
+Example:
+
+    <template>
+        <TabsView :tabs="components" v-model="selectedTab" />
+    </template>
+
+    <style module>
+    .tab-one {
+        color: magenta;
+    }
+
+    .tab-two {
+        color: cyan;
+    }
+
+    .tab-three {
+        color: yellow;
+    }
+    </style>
+
+    <script setup>
+    import TabOne from './TabOne.vue'
+    import TabTwo from './TabTwo.vue'
+    import TabThree from './TabThree.vue'
+    import TabsView from './TabsView.vue'
+    import { ref, shallowRef, useCssModule } from 'vue'
+
+    const styles = useCssModule()
+
+    const components = shallowRef([
+        {
+            label: 'Tab 1',
+            value: 'tab1',
+            component: TabOne,
+            styles: styles,
+        },
+        {
+            label: 'Tab 2',
+            value: 'tab2',
+            component: TabTwo,
+            styles: styles,
+        },
+        {
+            label: 'Tab 3',
+            value: 'tab3',
+            component: TabThree,
+            styles: styles,
+        },
+    ])
+
+    const selectedTab = ref(components.value[0].value)
+    </script>
+
+where TabOne.vue is:
+
+    <template>
+        <div>
+            <p :class="componentStyles['tab-one']">
+                This is the first tab.
+            </p>
+        </div>
+    </template>
+
+    <script setup>
+    const { componentStyles } = defineProps(['component-styles'])
+    </script>
+
+and TabTwo.vue and TabThree.vue are identical to TabOne.vue, mutatis mutandis.
+
+Note in particular the use of shallowRef when declaring the components array to
+suppress a warning from Vue.
+-->
+
 <template>
     <div :class="tabsStyles.view">
         <div :class="tabsStyles.bar" ref="tabsBar">
